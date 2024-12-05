@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Sales Bar Chart</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        
+        #chart-container {
+            width: 70%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Product Sales Chart</h1>
+    <div id="chart-container">
+        <canvas id="salesChart"></canvas>
+    </div>
+
+    <script>
+        
+        var data = {
+            labels: ['Product 1', 'Product 2', 'Product 3'],
+            datasets: [{
+                label: 'Product Sales',
+                data: [100, 200, 150],
+                backgroundColor: ['rgba(290, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
+                borderColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                borderWidth: 1
+            }]
+        };
+
+        
+        var config = {
+            type: 'bar',
+            data: data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Create the chart
+        var ctx = document.getElementById('salesChart').getContext('2d');
+        var salesChart = new Chart(ctx, config);
+    </script>
+
+</body>
+</html>

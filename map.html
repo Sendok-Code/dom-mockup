@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Map</title>
+    <!-- Include Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px; /* Set the map height */
+            width: 80%; /* Set the map width */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Open StreetMap</h1>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        var initialCoordinates = [-0.9526905161027355, 100.38921269532727]; // Coordinates for your location
+        var initialZoom = 15;
+
+        // Create the map
+        var map = L.map('map').setView(initialCoordinates, initialZoom);
+
+        // Define tile layers
+        var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        });
+
+        var osmHOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team hosted by OpenStreetMap France'
+        });
+
+        // Add the default tile layer
+        osm.addTo(map);
+
+        // Add a marker to the map at the specified location
+        var marker = L.marker(initialCoordinates).addTo(map);
+
+        // Bind popup to the marker
+        marker.bindPopup('<b>You are here!</b>').openPopup();
+
+        // Add click event to open the popup when the marker is clicked
+        marker.on('click', function () {
+            marker.openPopup();
+        });
+
+        // Add a layer control to switch between different map layers
+        var baseLayers = {
+            "OpenStreetMap": osm,
+            "OpenStreetMap HOT": osmHOT
+        };
+
+        L.control.layers(baseLayers).addTo(map); // Allow user to toggle between tile layers
+    </script>
+</body>
+</html>
